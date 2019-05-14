@@ -1,22 +1,12 @@
 var timerJust = setTimeout(timer, 1000, 1000);
 
+const daysInput = document.getElementsByClassName("days");
+const hoursInput = document.getElementsByClassName("hours");
+const minutesInput = document.getElementsByClassName("minutes");
+const secondsInput = document.getElementsByClassName("seconds");
+
 function timer() {
     const currentTime = new Date();
-    const days = currentTime.getDate() < 10 ? `0${currentTime.getDate()}` : currentTime.getDate();
-    const hours = currentTime.getHours() < 10 ? `0${currentTime.getHours()}` : currentTime.getHours();
-    const minutes = currentTime.getMinutes() < 10 ? `0${currentTime.getMinutes()}` : currentTime.getMinutes();
-    const seconds = currentTime.getSeconds() < 10 ? `0${currentTime.getSeconds()}` : currentTime.getSeconds();
-
-    const daysInput = document.getElementsByClassName("days");
-    const hoursInput = document.getElementsByClassName("hours");
-    const minutesInput = document.getElementsByClassName("minutes");
-    const secondsInput = document.getElementsByClassName("seconds");
-
-    daysInput[0].childNodes[1].innerText = days;
-    hoursInput[0].childNodes[1].innerText = hours;
-    minutesInput[0].childNodes[1].innerText = minutes;
-    secondsInput[0].childNodes[1].innerText = seconds;
-
     const obj = JSON.parse(window.localStorage.getItem('user'))
 
     const futureDate = new Date(obj.Day);
@@ -27,11 +17,38 @@ function timer() {
     const currentTimeIndex = currentTime.getTime();
 
     const diffrentTime = futureTimeIndex - currentTimeIndex;
+
     if (diffrentTime <= 0) {
         document.getElementById("aikaa").innerText = obj.Message;
         document.getElementsByClassName("time-display")[0].style.display = "none";
         clearTimeout(timerJust);
     } else {
+        getCountdown(diffrentTime);
         timerJust = setTimeout(timer, 1000, 1000);
     }
+}
+
+
+function getCountdown(secondsLeft){
+    const currentTime = new Date();
+
+    secondsLeft = secondsLeft / 1000;
+
+    const days = pad( parseInt(secondsLeft / 86400) );
+    secondsLeft = secondsLeft % 86400;
+
+    const hours = pad( parseInt(secondsLeft / 3600) );
+    secondsLeft = secondsLeft % 3600;
+
+    const minutes = pad( parseInt(secondsLeft / 60) );
+    const seconds = pad( parseInt( secondsLeft % 60 ) );
+
+    daysInput[0].childNodes[1].innerText = days;
+    hoursInput[0].childNodes[1].innerText = hours;
+    minutesInput[0].childNodes[1].innerText = minutes;
+    secondsInput[0].childNodes[1].innerText = seconds;
+}
+
+function pad(n) {
+    return (n < 10 ? '0' : '') + n;
 }

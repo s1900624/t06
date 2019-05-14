@@ -21,6 +21,7 @@ function timer() {
     if (diffrentTime <= 0) {
         document.getElementById("aikaa").innerText = obj.Message;
         document.getElementsByClassName("time-display")[0].style.display = "none";
+        window.setLocalStorage.clear();
         clearTimeout(timerJust);
     } else {
         getCountdown(diffrentTime);

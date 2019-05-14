@@ -15,18 +15,14 @@ function setLocalStorage() {
     const futureDate = new Date(document.getElementById('date').value);
     const times = document.getElementById('time').value.split(':');
     futureDate.setHours(times[0], times[1], 0, 0);
-    // const futureTime = futureDate.getTime();
 
     const obj = {};
     obj.Title = document.getElementById('title').value;
-    // obj.Futuretime = futureTime;
     obj.Day = document.getElementById('date').value;
     obj.Time = document.getElementById('time').value;
     obj.Message = document.getElementById('message').value;
     window.localStorage.setItem('user', JSON.stringify(obj));
     window.location = "index.html";
-
-    console.log(window.localStorage);
     return false;
 }
 

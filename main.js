@@ -27,6 +27,8 @@ function timer() {
             getCountdown(diffrentTime);
             timerJust = setTimeout(timer, 1000, 1000);
         }
+    } else {
+        window.location = "config.html";
     }
 }
 

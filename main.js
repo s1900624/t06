@@ -17,12 +17,18 @@ function timer() {
     minutesInput[0].childNodes[1].innerText = minutes;
     secondsInput[0].childNodes[1].innerText = seconds;
 
-    const futureTimeIndex = window.localStorage.getItem('futuretime');
+    const obj = JSON.parse(window.localStorage.getItem('user'))
+
+    const futureDate = new Date(obj.Day);
+    const times = obj.Time.split(':');
+    futureDate.setHours(times[0], times[1], 0, 0);
+
+    const futureTimeIndex = futureDate.getTime();
     const currentTimeIndex = currentTime.getTime();
 
     const diffrentTime = futureTimeIndex - currentTimeIndex;
     if (diffrentTime <= 0) {
-        document.getElementById("aikaa").innerText = window.localStorage.getItem('message');
+        document.getElementById("aikaa").innerText = obj.Message;
         document.getElementsByClassName("time-display")[0].style.display = "none";
         clearTimeout(timerJust);
     } else {

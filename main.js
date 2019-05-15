@@ -1,4 +1,4 @@
-var timerJust = setTimeout(timer, 1000, 1000);
+var timerJust = setTimeout(timer, 10);
 
 const daysInput = document.getElementsByClassName("days");
 const hoursInput = document.getElementsByClassName("hours");
@@ -7,8 +7,8 @@ const secondsInput = document.getElementsByClassName("seconds");
 
 function timer() {
     const currentTime = new Date();
-    const obj = JSON.parse(window.localStorage.getItem('user'))
-    if (obj !== null) {
+    if (window.localStorage.getItem('user') !== null) {
+        const obj = JSON.parse(window.localStorage.getItem('user'))
         const futureDate = new Date(obj.Day);
         const times = obj.Time.split(':');
         futureDate.setHours(times[0], times[1], 0, 0);
@@ -25,7 +25,7 @@ function timer() {
             clearTimeout(timerJust);
         } else {
             getCountdown(diffrentTime);
-            timerJust = setTimeout(timer, 1000, 1000);
+            timerJust = setTimeout(timer, 1000);
         }
     } else {
         window.location = "config.html";
